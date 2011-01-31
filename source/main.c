@@ -18,7 +18,7 @@ int main()
   s32 y=50 << 8;
   s32 bgx=0;
   s32 bgy=0;
-  u32 speed = 2 << 8;
+  u32 speed = 1 << 8;
   s32 verticalSpeed = 0;
   
   PA_Init();
@@ -38,6 +38,20 @@ int main()
     {
       /* Scroll sky background */
       PA_EasyBgScrollXY (GAME_SCREEN, 1, bgx++ >> 1, bgy-- >> 4);
+      
+      /* Speed modifier */
+      if (Pad.Held.B)
+        {
+          speed = 2 << 8;
+        }
+      else if (Pad.Held.X)
+        {
+          speed = 1 << 6;
+        }
+      else
+        {
+          speed = 1 << 8;
+        }
       
       /* Move david left and right */
       x += (Pad.Held.Right - Pad.Held.Left) * speed;      

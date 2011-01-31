@@ -23,9 +23,9 @@ ARM7_SELECTED := ARM7_MAXMOD_DSWIFI
 # icon for your project too!
 #---------------------------------------------------------------------------------
 
-TEXT1 := PAlib Project
-TEXT2 := Change this text
-TEXT3 := for your project!
+TEXT1 := Super David DS!
+TEXT2 := Platform game adventure
+TEXT3 := David Hoyes
 
 #---------------------------------------------------------------------------------
 # TARGET is the name of the file to output
