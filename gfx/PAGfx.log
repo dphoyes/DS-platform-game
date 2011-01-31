@@ -1,0 +1,22 @@
+PAGfx Converter v0.10 -- by Mollusk -- resurrected by fincs -- forum.palib.info
+Mono version
+If you have suggestions, problems or anything please come to the PAlib forums
+
+Converting PAGfx.ini
+Transparent Color: Magenta
+
+1 sprites:
+  david: 256colors, 16x32, Pal: david_Pal, -> david_Sprite
+
+2 backgrounds:
+  level : EasyBg, 256x192, Pal: level_Pal, 11 tiles -> level_Tiles and level_Map
+  skybg : EasyBg, 256x256, Pal: skybg_Pal, 64 tiles -> skybg_Tiles and skybg_Map
+
+3 palettes:
+  david_Pal, 92 colors
+  level_Pal, 21 colors
+  skybg_Pal, 39 colors
+
+Converted in 0 minutes and 1 second
+
+Finished!
