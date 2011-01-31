@@ -28,8 +28,8 @@ int main()
   PA_CreateSprite(GAME_SCREEN, 0, (void*)david_Sprite, OBJ_SIZE_16X32, 1, 0, 0, 0); // create david sprite
   
   /* Play music via Maxmod */
-	mmInitDefaultMem((mm_addr)soundbank_bin);
-	mmLoad(MOD_MUSIC);
+  mmInitDefaultMem((mm_addr)soundbank_bin);
+  mmLoad(MOD_MUSIC);
   mmStart(MOD_MUSIC, MM_PLAY_LOOP);
   
   
