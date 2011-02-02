@@ -1,6 +1,11 @@
-/////////////////
-// Super David //
-/////////////////
+/**
+ * @file   main.c
+ * @author David Hoyes
+ * @brief  Super David DS, a platform adventure game for the Nintendo DS
+ */
+
+#include "main.h"
+#include "david.h"
 
 #include <PA9.h>
 #include "all_gfx.h"
@@ -8,18 +13,17 @@
 #include "soundbank_bin.h"
 #include "soundbank.h"
 
-#define GRAVITY 40
-#define GAME_SCREEN 1 // set to 0 for bottom screen, 1 for top screen
-
 
 int main()
 {
-  s32 x=50 << 8;
-  s32 y=50 << 8;
+  david_t david;
+  david.x=50 << 8;
+  david.y=100 << 8;
+  david.speed = 1 << 8;
+  david.verticalSpeed = 0;
+  
   s32 bgx=0;
   s32 bgy=0;
-  u32 speed = 1 << 8;
-  s32 verticalSpeed = 0;
   
   PA_Init();
   PA_LoadBackground (GAME_SCREEN, 0, &level); // draw level
@@ -32,71 +36,26 @@ int main()
   mmLoad(MOD_MUSIC);
   mmStart(MOD_MUSIC, MM_PLAY_LOOP);
   
+  /* Init text */
+  PA_LoadDefaultText(OTHER_SCREEN, 0);
+  
   
   /* Main Loop */
   while(true)
     {
+      /* Print tile */
+      if (Stylus.Held)
+        {
+          PA_ClearTextBg (OTHER_SCREEN);
+          PA_OutputText (OTHER_SCREEN, 0, 0, "X: %d\nY: %d\nTile Num: %d\nTile type: %d", Stylus.X, Stylus.Y, queryTileAt (Stylus.X, Stylus.Y), ((u16*)level.BgMap)[queryTileAt (Stylus.X, Stylus.Y)]);
+        }
+      
       /* Scroll sky background */
       PA_EasyBgScrollXY (GAME_SCREEN, 1, bgx++ >> 1, bgy-- >> 4);
       
-      /* Speed modifier */
-      if (Pad.Held.B)
-        {
-          speed = 2 << 8;
-        }
-      else if (Pad.Held.X)
-        {
-          speed = 1 << 6;
-        }
-      else
-        {
-          speed = 1 << 8;
-        }
-      
-      /* Move david left and right */
-      x += (Pad.Held.Right - Pad.Held.Left) * speed;      
-      
-      /* Flip david sprite horizontally if direction changed */
-      if (Pad.Newpress.Left)
-        {
-          PA_SetSpriteHflip (GAME_SCREEN, 0, 1);
-        }
-      else if (Pad.Newpress.Right)
-        {
-          PA_SetSpriteHflip (GAME_SCREEN, 0, 0);
-        }
-      
-      /* Jump! */
-      if (Pad.Newpress.A && y == (192-32-16) << 8) // david must be on the ground in order to jump…
-        {
-          verticalSpeed = -4 << 8;
-        }
-      
-      /* Fall :( */
-      y += verticalSpeed;
-      verticalSpeed += GRAVITY;
-      
-      
-      /* Stop falling if he hits the ground */
-      if (y > (192-32-16) << 8)
-        {
-          y = (192-32-16) << 8;
-          verticalSpeed = 0;
-        }
-      
-      /* Wrap around horizontally */
-      if (x>256 << 8)
-        {
-          x = -32 << 8;
-        }
-      else if (x< -32 << 8)
-        {
-          x = 256 << 8;
-        }
-      
-      /* Update david's sprite with his new position :) */
-      PA_SetSpriteXY (GAME_SCREEN, 0, x >> 8, y >> 8);
+      david_step (&david);
       
       PA_WaitForVBL();
     }
 }
+
