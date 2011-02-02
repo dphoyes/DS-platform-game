@@ -12,8 +12,9 @@ extern "C"{
 extern const unsigned char david_Sprite[512] _GFX_ALIGN; // Palette: david_Pal
 
 // Backgrounds:
-extern const PA_BgStruct level;
 extern const PA_BgStruct skybg;
+extern const PA_BgStruct level_coll;
+extern const PA_BgStruct level_gfx;
 
 // Palettes:
 extern const unsigned short david_Pal[256] _GFX_ALIGN;

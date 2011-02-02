@@ -26,7 +26,7 @@ int main()
   s32 bgy=0;
   
   PA_Init();
-  PA_LoadBackground (GAME_SCREEN, 0, &level); // draw level
+  PA_LoadBackground (GAME_SCREEN, 0, &level_gfx); // draw level
   PA_LoadBackground (GAME_SCREEN, 1, &skybg); // draw sky
   PA_LoadSpritePal (GAME_SCREEN, 0, (void*)david_Pal); // load david palette, necessary for…
   PA_CreateSprite(GAME_SCREEN, 0, (void*)david_Sprite, OBJ_SIZE_16X32, 1, 0, 0, 0); // create david sprite
@@ -47,7 +47,7 @@ int main()
       if (Stylus.Held)
         {
           PA_ClearTextBg (OTHER_SCREEN);
-          PA_OutputText (OTHER_SCREEN, 0, 0, "X: %d\nY: %d\nTile Num: %d\nTile type: %d", Stylus.X, Stylus.Y, queryTileAt (Stylus.X, Stylus.Y), ((u16*)level.BgMap)[queryTileAt (Stylus.X, Stylus.Y)]);
+          PA_OutputText (OTHER_SCREEN, 0, 1, "X: %d\nY: %d\nTile Num: %d\nTile type: %d", Stylus.X, Stylus.Y, queryTileAt (Stylus.X, Stylus.Y), ((u16*)level_coll.BgMap)[queryTileAt (Stylus.X, Stylus.Y)]);
         }
       
       /* Scroll sky background */

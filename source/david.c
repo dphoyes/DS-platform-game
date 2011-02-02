@@ -41,14 +41,13 @@ void david_step (david_t *david)
         }
 
       /* Jump! */
-      if (Pad.Newpress.A && ((u16*)level.BgMap)[queryTileAt(david->x >> 8, (david->y >> 8) + 32)] != 0) // david must be on the ground in order to jump…
+      if (Pad.Newpress.A && ((u16*)level_coll.BgMap)[queryTileAt(david->x >> 8, (david->y >> 8) + 32)] != 0) // david must be on the ground in order to jump…
         {
-          david->verticalSpeed = -4 << 8;
-          PA_OutputSimpleText (OTHER_SCREEN, 0, 0, "jump");
+          david->verticalSpeed = -11 << 7;
         }
       else
         {
-          PA_OutputText (OTHER_SCREEN, 0, 0, "%d", ((u16*)level.BgMap)[queryTileAt(david->x >> 8, (david->y >> 8) + 32)]);
+          PA_OutputText (OTHER_SCREEN, 0, 0, "%d", ((u16*)level_coll.BgMap)[queryTileAt(david->x >> 8, (david->y >> 8) + 32)]);
         }
       
       /* Fall :( */
@@ -57,15 +56,15 @@ void david_step (david_t *david)
       
       
       /* Stop falling if he hits the ground */
-      tile = ((u16*)level.BgMap)[queryTileAt(david->x >> 8, (david->y >> 8) + 32)];
+      tile = ((u16*)level_coll.BgMap)[queryTileAt(david->x >> 8, (david->y >> 8) + 32)];
       if (tile != 0 && david->verticalSpeed > 0)
         {
           david->verticalSpeed = 0;
-          tile = ((u16*)level.BgMap)[queryTileAt(david->x >> 8, (david->y >> 8) + 31)];
+          tile = ((u16*)level_coll.BgMap)[queryTileAt(david->x >> 8, (david->y >> 8) + 31)];
           while (tile != 0)
             {
               david->y -= 1 << 8;
-              tile = ((u16*)level.BgMap)[queryTileAt(david->x >> 8, (david->y >> 8) + 31)];
+              tile = ((u16*)level_coll.BgMap)[queryTileAt(david->x >> 8, (david->y >> 8) + 31)];
             }
         }
         

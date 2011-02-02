@@ -12,6 +12,6 @@ const PA_BgStruct level = {
 	level_Map,
 	{level_Pal},
 
-	704,
+	960,
 	{1536}
 };
