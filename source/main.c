@@ -44,17 +44,16 @@ int main()
   while(true)
     {
       /* Print tile */
-      if (Stylus.Held)
-        {
-          PA_ClearTextBg (OTHER_SCREEN);
-          PA_OutputText (OTHER_SCREEN, 0, 1, "X: %d\nY: %d\nTile Num: %d\nTile type: %d", Stylus.X, Stylus.Y, queryTileAt (Stylus.X, Stylus.Y), ((u16*)level_coll.BgMap)[queryTileAt (Stylus.X, Stylus.Y)]);
-        }
+      PA_ClearTextBg (OTHER_SCREEN);
+      PA_OutputText (OTHER_SCREEN, 0, 0, "X: %d\nY: %d\nTile Num: %d\nTile type: %d\nTile type below David: %d", Stylus.X, Stylus.Y, queryTileAt (Stylus.X, Stylus.Y), ((u16*)level_coll.BgMap)[queryTileAt (Stylus.X, Stylus.Y)], ((u16*)level_coll.BgMap)[queryTileAt(david.x >> 8, (david.y >> 8) + 32)]);
       
       /* Scroll sky background */
       PA_EasyBgScrollXY (GAME_SCREEN, 1, bgx++ >> 1, bgy-- >> 4);
       
+      /* Do magic */
       david_step (&david);
       
+      /* Wait till next frame */
       PA_WaitForVBL();
     }
 }

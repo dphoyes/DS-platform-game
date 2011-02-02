@@ -45,10 +45,6 @@ void david_step (david_t *david)
         {
           david->verticalSpeed = -11 << 7;
         }
-      else
-        {
-          PA_OutputText (OTHER_SCREEN, 0, 0, "%d", ((u16*)level_coll.BgMap)[queryTileAt(david->x >> 8, (david->y >> 8) + 32)]);
-        }
       
       /* Fall :( */
       david->y += david->verticalSpeed;
