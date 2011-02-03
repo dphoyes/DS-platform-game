@@ -45,7 +45,14 @@ int main()
     {
       /* Print tile */
       PA_ClearTextBg (OTHER_SCREEN);
-      PA_OutputText (OTHER_SCREEN, 0, 0, "X: %d\nY: %d\nTile Num: %d\nTile type: %d\nTile type below David: %d", Stylus.X, Stylus.Y, queryTileAt (Stylus.X, Stylus.Y), ((u16*)level_coll.BgMap)[queryTileAt (Stylus.X, Stylus.Y)], ((u16*)level_coll.BgMap)[queryTileAt(david.x >> 8, (david.y >> 8) + 32)]);
+      PA_OutputText (OTHER_SCREEN, 0, 0, "X: %d\nY: %d\nTile Num: %d\nTile type: %d\nTile type below David: %d\nDavid's vertical velocity: %d",
+                                          Stylus.X,
+                                          Stylus.Y,
+                                          queryTileAt (Stylus.X, Stylus.Y),
+                                          ((u16*)level_coll.BgMap)[queryTileAt (Stylus.X, Stylus.Y)],
+                                          ((u16*)level_coll.BgMap)[queryTileAt(david.x >> 8, (david.y >> 8) + 32)],
+                                          david.verticalSpeed >> 8
+                    );
       
       /* Scroll sky background */
       PA_EasyBgScrollXY (GAME_SCREEN, 1, bgx++ >> 1, bgy-- >> 4);
