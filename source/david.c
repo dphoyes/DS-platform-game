@@ -49,7 +49,10 @@ void david_step (david_t *david)
       /* Fall :( */
       david->y += david->verticalSpeed;
       david->verticalSpeed += GRAVITY;
-      
+      if (Pad.Held.A == 0 && david->verticalSpeed < 0)
+        {
+          david->verticalSpeed += 80;
+        }
       
       /* Stop falling if he hits the ground */
       tile = ((u16*)level_coll.BgMap)[queryTileAt(david->x >> 8, (david->y >> 8) + 32)];
