@@ -16,14 +16,12 @@
 
 int main()
 {
-  david_t david;
-  david.x=50 << 8;
-  david.y=100 << 8;
-  david.speed = 1 << 8;
-  david.verticalSpeed = 0;
+  david_t david = {70 <<8, 100 <<8, 0, 0, 0, 0, 31, 4, 11};
   
   s32 bgx=0;
   s32 bgy=0;
+  
+  int i;
   
   PA_Init();
   PA_LoadBackground (GAME_SCREEN, 0, &level_gfx); // draw level
@@ -44,14 +42,20 @@ int main()
   while(true)
     {
       /* Print tile */
-      PA_ClearTextBg (OTHER_SCREEN);
-      PA_OutputText (OTHER_SCREEN, 0, 0, "X: %d\nY: %d\nTile Num: %d\nTile type: %d\nTile type below David: %d\nDavid's vertical velocity: %d",
+      for (i=0; i<20; i++)
+        {
+          PA_OutputText (OTHER_SCREEN, 0, i, "                              ");
+        }
+      PA_OutputText (OTHER_SCREEN, 0, 0, "Stylus X, Y: (%d, %d)\nStylus Tile Num: %d\nStylus Tile type: %d\nDavid X, Y: (%d, %d)\nDavid's vertical velocity: %d\nTile type below David: %d",
                                           Stylus.X,
                                           Stylus.Y,
                                           queryTileAt (Stylus.X, Stylus.Y),
-                                          ((u16*)level_coll.BgMap)[queryTileAt (Stylus.X, Stylus.Y)],
-                                          ((u16*)level_coll.BgMap)[queryTileAt(david.x >> 8, (david.y >> 8) + 32)],
-                                          david.verticalSpeed >> 8
+                                          queryIfSolid (Stylus.X, Stylus.Y),
+                                          david.x >>8,
+                                          david.y >>8,
+                                          david.verticalVelocity >>8,
+                                          queryOnSolid(&david)
+                                          
                     );
       
       /* Scroll sky background */
@@ -63,5 +67,6 @@ int main()
       /* Wait till next frame */
       PA_WaitForVBL();
     }
+  return 0;
 }
 

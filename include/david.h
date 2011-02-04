@@ -14,13 +14,22 @@ typedef struct david_attrs
   s32 x;
   s32 y;
   u32 speed;
-  s32 verticalSpeed;
+  s32 verticalVelocity;
+  u8 flipped;
+  u8 topBound;
+  u8 bottomBound;
+  u8 leftBound;
+  u8 rightBound;
 } david_t;
 
 void david_step (david_t *david);
-u32 queryTileAt (u32 x, u32 y);
-u16 queryTileTypeAt (u32 x, u32 y);
+u32 queryTileAt (s32 x, s32 y);
+u16 queryTileTypeAt (s32 x, s32 y);
+u16 queryCollisionUp (david_t *david);
 u16 queryCollisionLeft (david_t *david);
 u16 queryCollisionRight (david_t *david);
+u16 queryCollisionDown (david_t *david);
+u16 queryOnSolid (david_t *david);
+u16 queryIfSolid (s32 x, s32 y);
 
 #endif
