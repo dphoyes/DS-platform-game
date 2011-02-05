@@ -100,6 +100,7 @@ void david_step (david_t *david)
     }
   
   /* Scroll view */
+  PA_EasyBgScrollXY (GAME_SCREEN, 1, david->viewPos.x >>8, david->viewPos.y >>8); // for some reason this has to be first, no idea why
   david->viewPos.x += (Pad.Held.R - Pad.Held.L) * (2 <<8);
   if (david->viewPos.x < 0)
     {
@@ -109,7 +110,6 @@ void david_step (david_t *david)
     {
       david->viewPos.x = (527 - 256) <<8;
     }
-  PA_EasyBgScrollXY (GAME_SCREEN, 1, david->viewPos.x >>8, david->viewPos.y >>8);
   david->screenPos.x = david->roomPos.x - david->viewPos.x;
   david->screenPos.y = david->roomPos.y - david->viewPos.y;
   if (david->screenPos.x < -31 <<8 || david->screenPos.x > 256 <<8)
