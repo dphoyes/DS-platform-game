@@ -101,7 +101,14 @@ void david_step (david_t *david)
   
   /* Scroll view */
   PA_EasyBgScrollXY (GAME_SCREEN, 1, david->viewPos.x >>8, david->viewPos.y >>8); // for some reason this has to be first, no idea why
-  david->viewPos.x += (Pad.Held.R - Pad.Held.L) * (2 <<8);
+  if (david->roomPos.x - david->viewPos.x > (150 <<8))
+    {
+      david->viewPos.x = david->roomPos.x - (150 <<8) ;
+    }
+  else if (david->roomPos.x - david->viewPos.x < (100 <<8))
+    {
+      david->viewPos.x = david->roomPos.x - (100 <<8) ;
+    }
   if (david->viewPos.x < 0)
     {
       david->viewPos.x = 0;
@@ -110,14 +117,14 @@ void david_step (david_t *david)
     {
       david->viewPos.x = (527 - 256) <<8;
     }
+  
+  /* Update david's sprite with his new position :) */
   david->screenPos.x = david->roomPos.x - david->viewPos.x;
   david->screenPos.y = david->roomPos.y - david->viewPos.y;
   if (david->screenPos.x < -31 <<8 || david->screenPos.x > 256 <<8)
     {
       david->screenPos.x = 257 <<8;
     }
-  
-  /* Update david's sprite with his new position :) */
   PA_SetSpriteXY (GAME_SCREEN, 0, david->screenPos.x >>8, david->screenPos.y >>8);
 }
 

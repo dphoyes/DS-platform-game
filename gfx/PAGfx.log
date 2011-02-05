@@ -11,14 +11,14 @@ Transparent Color: Magenta
 3 backgrounds:
   skybg : EasyBg, 256x256, Pal: skybg_Pal, 64 tiles -> skybg_Tiles and skybg_Map
   level_coll : EasyBg, 528x256, Pal: level_coll_Pal, 2 tiles -> level_coll_Tiles and level_coll_Map
-  level_gfx : EasyBg, 528x256, Pal: level_gfx_Pal, 30 tiles -> level_gfx_Tiles and level_gfx_Map
+  level_gfx : EasyBg, 528x256, Pal: level_gfx_Pal, 28 tiles -> level_gfx_Tiles and level_gfx_Map
 
 4 palettes:
   david_Pal, 92 colors
   skybg_Pal, 39 colors
   level_coll_Pal, 2 colors
-  level_gfx_Pal, 36 colors
+  level_gfx_Pal, 37 colors
 
-Converted in 0 minutes and 2 seconds
+Converted in 0 minutes and 1 second
 
 Finished!

@@ -12,6 +12,6 @@ const PA_BgStruct level_gfx = {
 	level_gfx_Map,
 	{level_gfx_Pal},
 
-	1920,
+	1792,
 	{4224}
 };
