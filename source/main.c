@@ -16,7 +16,7 @@
 
 int main()
 {
-  david_t david = {70 <<8, 100 <<8, 0, 0, 0, 0, 31, 4, 11};
+  david_t david = {{70 <<8, 100 <<8}, {0, 0}, {0, 0}, 0, 0, 0, 0, 31, 4, 11};
   
   s32 bgx=0;
   s32 bgy=0;
@@ -24,8 +24,9 @@ int main()
   int i;
   
   PA_Init();
-  PA_LoadBackground (GAME_SCREEN, 0, &level_gfx); // draw level
-  PA_LoadBackground (GAME_SCREEN, 1, &skybg); // draw sky
+  PA_LoadBackground (GAME_SCREEN, 1, &level_gfx); // draw level
+  PA_LoadBackground (GAME_SCREEN, 3, &skybg); // draw sky
+  PA_LoadBackground (OTHER_SCREEN, 3, &skybg); // draw sky
   PA_LoadSpritePal (GAME_SCREEN, 0, (void*)david_Pal); // load david palette, necessary for…
   PA_CreateSprite(GAME_SCREEN, 0, (void*)david_Sprite, OBJ_SIZE_16X32, 1, 0, 0, 0); // create david sprite
   
@@ -36,6 +37,7 @@ int main()
   
   /* Init text */
   PA_LoadDefaultText(OTHER_SCREEN, 0);
+  PA_SetTextCol(OTHER_SCREEN, 0, 0, 0);
   
   
   /* Main Loop */
@@ -46,20 +48,25 @@ int main()
         {
           PA_OutputText (OTHER_SCREEN, 0, i, "                              ");
         }
-      PA_OutputText (OTHER_SCREEN, 0, 0, "Stylus X, Y: (%d, %d)\nStylus Tile Num: %d\nStylus Tile type: %d\nDavid X, Y: (%d, %d)\nDavid's vertical velocity: %d\nTile type below David: %d",
+      PA_OutputText (OTHER_SCREEN, 0, 0, "Stylus X, Y: (%d, %d)\nStylus Tile Num: %d\nStylus Tile type: %d\nDavid roomPos: (%d, %d)\nDavid screenPos: (%d, %d)\nDavid viewPos: (%d, %d)\nDavid's vertical velocity: %d\nTile type below David: %d",
                                           Stylus.X,
                                           Stylus.Y,
                                           queryTileAt (Stylus.X, Stylus.Y),
                                           queryIfSolid (Stylus.X, Stylus.Y),
-                                          david.x >>8,
-                                          david.y >>8,
+                                          david.roomPos.x >>8,
+                                          david.roomPos.y >>8,
+                                          david.screenPos.x >>8,
+                                          david.screenPos.y >>8,
+                                          david.viewPos.x >>8,
+                                          david.viewPos.y >>8,
                                           david.verticalVelocity >>8,
                                           queryOnSolid(&david)
                                           
                     );
       
       /* Scroll sky background */
-      PA_EasyBgScrollXY (GAME_SCREEN, 1, bgx++ >> 1, bgy-- >> 4);
+      PA_EasyBgScrollXY (GAME_SCREEN, 3, bgx >> 1, (bgy >>4) + 30);
+      PA_EasyBgScrollXY (OTHER_SCREEN, 3, bgx++ >> 1, bgy-- >>4);
       
       /* Do magic */
       david_step (&david);

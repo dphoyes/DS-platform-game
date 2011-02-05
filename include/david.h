@@ -9,10 +9,17 @@
 
 #include <PA9.h>
 
-typedef struct david_attrs
+typedef struct coords
 {
   s32 x;
   s32 y;
+} coords_t;
+
+typedef struct david_attrs
+{
+  coords_t roomPos;
+  coords_t screenPos;
+  coords_t viewPos;
   u32 speed;
   s32 verticalVelocity;
   u8 flipped;
